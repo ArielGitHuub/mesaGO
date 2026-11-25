@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:mesaGO_App.ViewModels"
+             x:Class="mesaGO_App.Views.AdminPage"
+             BackgroundColor="#f9fafb"
+             Title="Admin Dashboard"
+             Shell.NavBarIsVisible="False">
+
+    <ContentPage.BindingContext>
+        <vm:AdminViewModel />
+    </ContentPage.BindingContext>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="20">
+
+            <Grid ColumnDefinitions="*, Auto" Margin="0,10,0,0">
+                <VerticalStackLayout>
+                    <Label Text="Dashboard" TextColor="#111827" FontSize="28" FontAttributes="Bold"/>
+                    <Label Text="Resumen de mesaGO" TextColor="Gray" FontSize="14"/>
+                </VerticalStackLayout>
+
+                <ImageButton Command="{Binding GoBackCommand}" Grid.Column="1" HeightRequest="40" WidthRequest="40" BackgroundColor="#fee2e2" CornerRadius="20">
+                    <ImageButton.Source>
+                        <FontImageSource Glyph="✕" Color="#ef4444" Size="20"/>
+                    </ImageButton.Source>
+                </ImageButton>
+            </Grid>
+
+            <Grid ColumnDefinitions="*, *" ColumnSpacing="10">
+                <Frame Padding="15" CornerRadius="15" HasShadow="True" BorderColor="Transparent" BackgroundColor="White">
+                    <VerticalStackLayout Spacing="5">
+                        <Grid ColumnDefinitions="*, Auto">
+                            <Label Text="VENTAS HOY" FontSize="10" TextColor="Gray" FontAttributes="Bold"/>
+                            <Label Text="💰" Grid.Column="1" FontSize="16"/>
+                        </Grid>
+                        <Label Text="{Binding TotalSales}" TextColor="#111827" FontSize="22" FontAttributes="Bold"/>
+                        <Label Text="↗ +12% vs ayer" TextColor="#16a34a" FontSize="10" FontAttributes="Bold"/>
+                    </VerticalStackLayout>
+                </Frame>
+
+                <Frame Grid.Column="1" Padding="15" CornerRadius="15" HasShadow="True" BorderColor="Transparent" BackgroundColor="White">
+                    <VerticalStackLayout Spacing="5">
+                        <Grid ColumnDefinitions="*, Auto">
+                            <Label Text="PLATOS" FontSize="10" TextColor="Gray" FontAttributes="Bold"/>
+                            <Label Text="📦" Grid.Column="1" FontSize="16"/>
+                        </Grid>
+                        <Label Text="{Binding DishesSold}" TextColor="#111827" FontSize="22" FontAttributes="Bold"/>
+                        <Label Text="En 12 órdenes" TextColor="Gray" FontSize="10"/>
+                    </VerticalStackLayout>
+                </Frame>
+            </Grid>
+
+            <Frame Padding="15" CornerRadius="15" HasShadow="True" BorderColor="#fecaca" BackgroundColor="#fef2f2">
+                <Grid ColumnDefinitions="*, Auto">
+                    <VerticalStackLayout Spacing="2">
+                        <Label Text="ALERTAS STOCK" FontSize="10" TextColor="#b91c1c" FontAttributes="Bold"/>
+                        <Label Text="{Binding LowStockCount}" TextColor="#b91c1c" FontSize="24" FontAttributes="Bold"/>
+                        <Label Text="Requiere atención" TextColor="#ef4444" FontSize="10"/>
+                    </VerticalStackLayout>
+                    <Label Text="⚠️" Grid.Column="1" FontSize="24" VerticalOptions="Center"/>
+                </Grid>
+            </Frame>
+
+            <Frame Padding="20" CornerRadius="15" HasShadow="True" BorderColor="Transparent" BackgroundColor="White">
+                <VerticalStackLayout Spacing="15">
+                    <Label Text="Ventas Semanales" TextColor="#111827" FontSize="16" FontAttributes="Bold"/>
+
+                    <Grid HeightRequest="180" VerticalOptions="End">
+                        <VerticalStackLayout Spacing="35" VerticalOptions="End" Margin="0,0,0,25">
+                            <BoxView HeightRequest="1" Color="#f3f4f6"/>
+                            <BoxView HeightRequest="1" Color="#f3f4f6"/>
+                            <BoxView HeightRequest="1" Color="#f3f4f6"/>
+                            <BoxView HeightRequest="1" Color="#f3f4f6"/>
+                            <BoxView HeightRequest="1" Color="#f3f4f6"/>
+                        </VerticalStackLayout>
+
+                        <CollectionView ItemsSource="{Binding WeeklySales}" VerticalOptions="End">
+                            <CollectionView.ItemsLayout>
+                                <LinearItemsLayout Orientation="Horizontal" ItemSpacing="10"/>
+                            </CollectionView.ItemsLayout>
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <VerticalStackLayout VerticalOptions="End" Spacing="5" WidthRequest="30">
+                                        <BoxView Color="#4f46e5" 
+                                                 WidthRequest="20" 
+                                                 HeightRequest="{Binding BarHeight}" 
+                                                 CornerRadius="4"/>
+                                        <Label Text="{Binding Day}" TextColor="Gray" FontSize="10" HorizontalOptions="Center"/>
+                                    </VerticalStackLayout>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </Grid>
+                </VerticalStackLayout>
+            </Frame>
+
+            <Frame Padding="20" CornerRadius="15" HasShadow="True" BorderColor="Transparent" BackgroundColor="White">
+                <VerticalStackLayout Spacing="15">
+                    <Label Text="Stock Crítico" TextColor="#111827" FontSize="16" FontAttributes="Bold"/>
+
+                    <CollectionView ItemsSource="{Binding LowStockItems}">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Frame BackgroundColor="#fef2f2" Padding="10" Margin="0,0,0,10" CornerRadius="10" HasShadow="False" BorderColor="#fee2e2">
+                                    <Grid ColumnDefinitions="*, Auto">
+                                        <VerticalStackLayout>
+                                            <Label Text="{Binding Nombre}" TextColor="#1f2937" FontAttributes="Bold" FontSize="14"/>
+                                            <Label Text="{Binding StockMinimo, StringFormat='Mínimo: {0}'}" TextColor="#ef4444" FontSize="10"/>
+                                        </VerticalStackLayout>
+
+                                        <VerticalStackLayout Grid.Column="1" HorizontalOptions="End">
+                                            <Label Text="{Binding StockActual}" TextColor="#b91c1c" FontAttributes="Bold" FontSize="16" HorizontalOptions="End"/>
+                                            <Label Text="{Binding Unidad}" TextColor="#ef4444" FontSize="10" FontAttributes="Bold" TextTransform="Uppercase" HorizontalOptions="End"/>
+                                        </VerticalStackLayout>
+                                    </Grid>
+                                </Frame>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+
+                    <Button Text="Ver Todo" Command="{Binding ViewInventoryCommand}" BackgroundColor="White" TextColor="#4f46e5" BorderColor="#e0e7ff" BorderWidth="1" HeightRequest="40" FontSize="12" CornerRadius="8"/>
+                </VerticalStackLayout>
+            </Frame>
+
+            <BoxView HeightRequest="20" Color="Transparent"/>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

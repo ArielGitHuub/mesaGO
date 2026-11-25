@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:mesaGO_App.ViewModels"
+             x:Class="mesaGO_App.Views.HomePage"
+             BackgroundColor="White"
+             Shell.NavBarIsVisible="False">
+
+    <ContentPage.BindingContext>
+        <vm:HomeViewModel />
+    </ContentPage.BindingContext>
+
+    <ScrollView>
+        <Grid RowDefinitions="Auto, Auto">
+
+            <Grid Grid.Row="0" HeightRequest="64" BackgroundColor="Black" Padding="0">
+                <Label Text="BUENAZO RICO SABOR YAPITA AJICITO DE LEY BUENAZO RICO SABOR" 
+                       TextColor="White" 
+                       Opacity="0.2"
+                       FontSize="30"
+                       FontAttributes="Bold"
+                       VerticalOptions="Center"
+                       HorizontalOptions="Center"
+                       MaxLines="1"
+                       LineBreakMode="NoWrap"/>
+
+                <Label Text="¿Necesitas ayuda?" 
+                       TextColor="White"
+                       FontSize="14"
+                       FontAttributes="Bold"
+                       VerticalOptions="Center"
+                       HorizontalOptions="Center"/>
+            </Grid>
+
+            <VerticalStackLayout Grid.Row="1" Padding="16" Spacing="16" Margin="0,-30,0,0">
+
+                <Frame BackgroundColor="#f36b01" 
+                       CornerRadius="16"
+                       Padding="16"
+                       HasShadow="True"
+                       BorderColor="Transparent"
+                       HeightRequest="80">
+                    <Grid>
+                        <Label Text="✨" FontSize="16" Opacity="0.4" HorizontalOptions="End" VerticalOptions="End"/>
+                        <Label Text="{Binding Quote}" 
+                               TextColor="White" 
+                               FontSize="14" 
+                               FontAttributes="Bold" 
+                               HorizontalTextAlignment="Center" 
+                               VerticalTextAlignment="Center"/>
+                    </Grid>
+                </Frame>
+
+                <Frame BackgroundColor="#f36b01"
+                       CornerRadius="24"
+                       Padding="0"
+                       HasShadow="True"
+                       BorderColor="Transparent"
+                       HeightRequest="380"
+                       IsClippedToBounds="True">
+
+                    <Grid>
+                        <Frame Padding="5" CornerRadius="12" WidthRequest="100" HeightRequest="100" 
+                        Rotation="6" TranslationX="-100" TranslationY="-160" IsClippedToBounds="True" BorderColor="White" HasShadow="False">
+                            <Image Source="https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec" Aspect="AspectFill">
+                                <Image.Clip>
+                                    <RoundRectangleGeometry CornerRadius="12" Rect="0,0,90,90"/>
+                                </Image.Clip>
+                            </Image>
+                        </Frame>
+
+                        <Frame Padding="5" CornerRadius="16" WidthRequest="120" HeightRequest="120" 
+                        Rotation="-12" TranslationX="-150" TranslationY="10" IsClippedToBounds="True" BorderColor="White" HasShadow="False" Opacity="0.9">
+                            <Image Source="https://images.unsplash.com/photo-1544025162-d76694265947" Aspect="AspectFill">
+                                <Image.Clip>
+                                    <RoundRectangleGeometry CornerRadius="16" Rect="0,0,110,110"/>
+                                </Image.Clip>
+                            </Image>
+                        </Frame>
+
+                        <Frame Padding="5" CornerRadius="10" WidthRequest="90" HeightRequest="90" 
+                        Rotation="15" TranslationX="-130" TranslationY="160" IsClippedToBounds="True" BorderColor="White" HasShadow="False">
+                            <Image Source="https://images.unsplash.com/photo-1604908176997-125f25cc6f3d" Aspect="AspectFill">
+                                <Image.Clip>
+                                    <RoundRectangleGeometry CornerRadius="10" Rect="0,0,80,80"/>
+                                </Image.Clip>
+                            </Image>
+                        </Frame>
+
+                        <Frame Padding="5" CornerRadius="10" WidthRequest="90" HeightRequest="90" 
+                        Rotation="-8" TranslationX="150" TranslationY="-150" IsClippedToBounds="True" BorderColor="White" HasShadow="False">
+                            <Image Source="https://images.unsplash.com/photo-1569058242253-92a9c755a0ec" Aspect="AspectFill">
+                                <Image.Clip>
+                                    <RoundRectangleGeometry CornerRadius="10" Rect="0,0,80,80"/>
+                                </Image.Clip>
+                            </Image>
+                        </Frame>
+
+                        <Frame Padding="5" CornerRadius="16" WidthRequest="130" HeightRequest="130" 
+                        Rotation="10" TranslationX="160" TranslationY="0" IsClippedToBounds="True" BorderColor="White" HasShadow="False" Opacity="0.9">
+                            <Image Source="https://images.unsplash.com/photo-1512621776951-a57141f2eefd" Aspect="AspectFill">
+                                <Image.Clip>
+                                    <RoundRectangleGeometry CornerRadius="16" Rect="0,0,120,120"/>
+                                </Image.Clip>
+                            </Image>
+                        </Frame>
+
+                        <Frame Padding="5" CornerRadius="12" WidthRequest="100" HeightRequest="100" 
+                        Rotation="-15" TranslationX="150" TranslationY="160" IsClippedToBounds="True" BorderColor="White" HasShadow="False">
+                            <Image Source="https://images.unsplash.com/photo-1603569283847-aa295f0d016a" Aspect="AspectFill">
+                                <Image.Clip>
+                                    <RoundRectangleGeometry CornerRadius="12" Rect="0,0,90,90"/>
+                                </Image.Clip>
+                            </Image>
+                        </Frame>
+
+
+                        <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="0">
+                            <Grid HorizontalOptions="Center">
+                                <Label Text="" FontSize="40" Rotation="-6" TranslationX="-60" TranslationY="-10"/>
+                                <HorizontalStackLayout Spacing="0">
+                                    <Label Text="mesa" TextColor="White" FontSize="60" FontAttributes="Bold" FontFamily="OpenSansRegular"/>
+                                    <Label Text="GO" TextColor="White" FontSize="60" FontAttributes="Bold" />
+                                </HorizontalStackLayout>
+                            </Grid>
+
+                            <Label Text="LAS MEJORES PROMOS" TextColor="White" FontSize="18" FontAttributes="Bold" HorizontalOptions="Center" Margin="0,0,0,20" CharacterSpacing="2"/>
+
+                            <Grid HorizontalOptions="Center">
+                                <Label Text="HASTA" TextColor="White" FontSize="20" FontAttributes="Bold" HorizontalOptions="Center" TranslationY="-15"/>
+                                <HorizontalStackLayout Spacing="0">
+                                    <Label Text="25" TextColor="White" FontSize="100" FontAttributes="Bold" LineHeight="1"/>
+                                    <Label Text="%" TextColor="White" FontSize="60" FontAttributes="Bold" VerticalOptions="Start" Margin="0,15,0,0"/>
+                                </HorizontalStackLayout>
+                                <Label Text="DSCTO." TextColor="White" FontSize="30" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="End" TranslationY="35"/>
+                            </Grid>
+                        </VerticalStackLayout>
+                    </Grid>
+                </Frame>
+
+                <Frame BackgroundColor="#1e293b" 
+                       CornerRadius="16"
+                       Padding="20"
+                       HasShadow="True"
+                       BorderColor="Transparent"
+                       HeightRequest="90">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding GoToMenuCommand}" />
+                    </Frame.GestureRecognizers>
+
+                    <Grid ColumnDefinitions="Auto, *, Auto">
+                        <Frame Grid.Column="0" BackgroundColor="#334155" CornerRadius="25" HeightRequest="50" WidthRequest="50" Padding="0" HasShadow="False" BorderColor="Transparent">
+                            <Label Text="🍽️" FontSize="24" HorizontalOptions="Center" VerticalOptions="Center"/>
+                        </Frame>
+
+                        <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Margin="15,0,0,0">
+                            <Label Text="VER MENÚ" TextColor="White" FontSize="22" FontAttributes="Bold,Italic"/>
+                            <Label Text="Descubre todos nuestros platos" TextColor="#94a3b8" FontSize="12"/>
+                        </VerticalStackLayout>
+
+                        <Frame Grid.Column="2" BackgroundColor="White" CornerRadius="20" HeightRequest="40" WidthRequest="40" Padding="0" HasShadow="False" BorderColor="Transparent">
+                            <Label Text="➜" TextColor="#1e293b" FontSize="20" HorizontalOptions="Center" VerticalOptions="Center"/>
+                        </Frame>
+                    </Grid>
+                </Frame>
+
+                <Grid ColumnDefinitions="*,*,*" ColumnSpacing="10" HeightRequest="110">
+                    <Frame Grid.Column="0" BackgroundColor="#f36b01" CornerRadius="16" Padding="0" HasShadow="False" BorderColor="Transparent">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding GoToMenuCommand}"/>
+                        </Frame.GestureRecognizers>
+                        <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center">
+                            <Label Text="🏍️" FontSize="28" HorizontalOptions="Center"/>
+                            <Label Text="MESAGO" TextColor="White" FontSize="12" FontAttributes="Bold,Italic" HorizontalOptions="Center" Margin="0,5,0,0"/>
+                            <Label Text="A DOMICILIO" TextColor="White" Opacity="0.9" FontSize="10" FontAttributes="Bold" HorizontalOptions="Center"/>
+                        </VerticalStackLayout>
+                    </Frame>
+
+                    <Frame Grid.Column="1" BackgroundColor="#f36b01" CornerRadius="16" Padding="0" HasShadow="False" BorderColor="Transparent">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding GoToReservationsCommand}"/>
+                        </Frame.GestureRecognizers>
+                        <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center">
+                            <Label Text="📍" FontSize="28" HorizontalOptions="Center"/>
+                            <Label Text="MESAGO" TextColor="White" FontSize="12" FontAttributes="Bold,Italic" HorizontalOptions="Center" Margin="0,5,0,0"/>
+                            <Label Text="EN EL LOCAL" TextColor="White" Opacity="0.9" FontSize="10" FontAttributes="Bold" HorizontalOptions="Center"/>
+                        </VerticalStackLayout>
+                    </Frame>
+
+                    <Frame Grid.Column="2" BackgroundColor="#f36b01" CornerRadius="16" Padding="0" HasShadow="False" BorderColor="Transparent">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding GoToMenuCommand}"/>
+                        </Frame.GestureRecognizers>
+                        <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center">
+                            <Label Text="🛍️" FontSize="28" HorizontalOptions="Center"/>
+                            <Label Text="MESAGO" TextColor="White" FontSize="12" FontAttributes="Bold,Italic" HorizontalOptions="Center" Margin="0,5,0,0"/>
+                            <Label Text="XTRA (RECOGER)" TextColor="White" Opacity="0.9" FontSize="9" FontAttributes="Bold" HorizontalOptions="Center"/>
+                        </VerticalStackLayout>
+                    </Frame>
+                </Grid>
+
+                <Frame BackgroundColor="White" CornerRadius="16" Padding="15" HasShadow="True" BorderColor="#e5e7eb">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding GoToCouponsCommand}"/>
+                    </Frame.GestureRecognizers>
+                    <Grid ColumnDefinitions="Auto, *, Auto">
+                        <Frame Grid.Column="0" BackgroundColor="#f97316" CornerRadius="20" HeightRequest="40" WidthRequest="40" Padding="0" HasShadow="False" BorderColor="Transparent">
+                            <Label Text="%" TextColor="White" FontSize="20" HorizontalOptions="Center" VerticalOptions="Center"/>
+                        </Frame>
+
+                        <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Margin="15,0,0,0">
+                            <Label Text="CUPONES" TextColor="#111827" FontSize="16" FontAttributes="Bold"/>
+                            <Label Text="Ahorra en tus pedidos" TextColor="#6b7280" FontSize="12"/>
+                        </VerticalStackLayout>
+
+                        <Label Grid.Column="2" Text="➜" TextColor="#d1d5db" FontSize="20" VerticalOptions="Center"/>
+                    </Grid>
+                </Frame>
+
+                <BoxView HeightRequest="20" Color="Transparent"/>
+
+            </VerticalStackLayout>
+        </Grid>
+    </ScrollView>
+</ContentPage>

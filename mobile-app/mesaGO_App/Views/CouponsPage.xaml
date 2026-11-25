@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:mesaGO_App.ViewModels"
+             x:Class="mesaGO_App.Views.CouponsPage"
+             BackgroundColor="#f9fafb"
+             Title="Cupones"
+             Shell.NavBarIsVisible="False">
+
+    <ContentPage.BindingContext>
+        <vm:CouponsViewModel />
+    </ContentPage.BindingContext>
+
+    <Grid RowDefinitions="Auto, Auto, *">
+
+        <Grid Grid.Row="0" HeightRequest="60" BackgroundColor="White" Padding="15,0">
+            <ImageButton Command="{Binding GoBackCommand}" HorizontalOptions="Start" HeightRequest="30" BackgroundColor="Transparent">
+                <ImageButton.Source>
+                    <FontImageSource Glyph="ᐸ" Color="Black" Size="20"/>
+                </ImageButton.Source>
+            </ImageButton>
+            <Label Text="CUPONES" TextColor="Black" FontSize="20" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Center"/>
+        </Grid>
+
+        <ScrollView Grid.Row="1" Orientation="Horizontal" HorizontalScrollBarVisibility="Never" BackgroundColor="White" Padding="15,10">
+            <HorizontalStackLayout Spacing="10" Padding="0,0,20,0">
+                <Button Text="🎉 Feriados" Command="{Binding ApplyFilterCommand}" CommandParameter="holiday" 
+                        BackgroundColor="#f36b01" TextColor="White" HeightRequest="40" CornerRadius="20" FontSize="12" FontAttributes="Bold"/>
+
+                <Button Text="🎟️ Todos" Command="{Binding ApplyFilterCommand}" CommandParameter="all" 
+                        BackgroundColor="Black" TextColor="White" HeightRequest="40" CornerRadius="20" FontSize="12" FontAttributes="Bold"/>
+
+                <Button Text="📍 Local" Command="{Binding ApplyFilterCommand}" CommandParameter="store" 
+                        BackgroundColor="#f3f4f6" TextColor="Gray" HeightRequest="40" CornerRadius="20" FontSize="12" FontAttributes="Bold"/>
+
+                <Button Text="🏍️ Domicilio" Command="{Binding ApplyFilterCommand}" CommandParameter="delivery" 
+                        BackgroundColor="#f3f4f6" TextColor="Gray" HeightRequest="40" CornerRadius="20" FontSize="12" FontAttributes="Bold"/>
+            </HorizontalStackLayout>
+        </ScrollView>
+
+        <CollectionView Grid.Row="2" ItemsSource="{Binding DisplayedCoupons}" Margin="15">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame Margin="0,0,0,15" Padding="0" CornerRadius="15" HasShadow="True" BorderColor="White" BackgroundColor="White">
+                        <VerticalStackLayout>
+                            <Grid HeightRequest="150">
+                                <Image Source="{Binding Image}" Aspect="AspectFill"/>
+                                <Frame BackgroundColor="White" CornerRadius="5" Padding="8,4" HorizontalOptions="Start" VerticalOptions="Start" Margin="10" HasShadow="False" Opacity="0.9">
+                                    <Label Text="{Binding Type}" TextColor="Black" FontSize="10" FontAttributes="Bold" TextTransform="Uppercase"/>
+                                </Frame>
+                            </Grid>
+
+                            <Grid RowDefinitions="Auto, Auto, Auto" Padding="15" RowSpacing="5">
+                                <Grid ColumnDefinitions="*, Auto">
+                                    <Label Text="{Binding Title}" TextColor="Black" FontAttributes="Bold" FontSize="16" LineBreakMode="TailTruncation"/>
+                                    <Label Grid.Column="1" Text="{Binding DiscountDisplay}" TextColor="#f36b01" FontAttributes="Bold" FontSize="18"/>
+                                </Grid>
+
+                                <Label Grid.Row="1" Text="{Binding Description}" TextColor="Gray" FontSize="12"/>
+
+                                <Grid Grid.Row="2" ColumnDefinitions="*, Auto" Margin="0,10,0,0">
+                                    <Frame BackgroundColor="#f3f4f6" Padding="10,5" CornerRadius="5" HasShadow="False" BorderColor="Transparent" HorizontalOptions="Start">
+                                        <Label Text="{Binding Code, StringFormat='CÓDIGO: {0}'}" TextColor="Gray" FontSize="10" FontAttributes="Bold"/>
+                                    </Frame>
+
+                                    <Button Grid.Column="1" Text="Canjear" Command="{Binding Source={RelativeSource AncestorType={x:Type vm:CouponsViewModel}}, Path=RedeemCommand}" CommandParameter="{Binding .}"
+                                            BackgroundColor="#f36b01" TextColor="White" HeightRequest="35" FontSize="12" CornerRadius="18" Padding="15,0"/>
+                                </Grid>
+                            </Grid>
+                        </VerticalStackLayout>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+
+            <CollectionView.EmptyView>
+                <VerticalStackLayout VerticalOptions="Center" Spacing="10">
+                    <Label Text="😢" FontSize="40" HorizontalOptions="Center"/>
+                    <Label Text="No hay cupones activos hoy." TextColor="Gray" HorizontalOptions="Center"/>
+                    <Label Text="¡Pero pronto es feriado!" TextColor="#f36b01" HorizontalOptions="Center" FontAttributes="Bold"/>
+                </VerticalStackLayout>
+            </CollectionView.EmptyView>
+        </CollectionView>
+
+    </Grid>
+</ContentPage>

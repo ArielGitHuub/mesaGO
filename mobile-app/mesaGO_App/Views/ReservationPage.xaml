@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:mesaGO_App.ViewModels"
+             x:Class="mesaGO_App.Views.ReservationPage"
+             BackgroundColor="White"
+             Title="Reservas"
+             Shell.NavBarIsVisible="False">
+
+    <ContentPage.BindingContext>
+        <vm:ReservationViewModel />
+    </ContentPage.BindingContext>
+
+    <Grid>
+        <ScrollView IsVisible="{Binding IsFormVisible}">
+            <VerticalStackLayout Padding="0,0,0,100">
+
+                <Grid HeightRequest="60" BackgroundColor="White" Padding="20,0">
+                    <Label Text="NUEVA RESERVA" TextColor="#0f172a" FontSize="20" FontAttributes="Bold" 
+                           VerticalOptions="Center" HorizontalOptions="Center"/>
+                </Grid>
+                <BoxView HeightRequest="1" Color="#f1f5f9"/>
+
+                <VerticalStackLayout Padding="24" Spacing="24">
+
+                    <VerticalStackLayout Spacing="10">
+                        <Label Text="👤 TUS DATOS" TextColor="#f36b01" FontAttributes="Bold" FontSize="12"/>
+
+                        <Frame BackgroundColor="#F8FAFC" CornerRadius="12" HasShadow="False" Padding="15,5" BorderColor="Transparent">
+                            <VerticalStackLayout Spacing="0">
+                                <Label Text="NOMBRE COMPLETO" FontSize="9" TextColor="#94a3b8" FontAttributes="Bold"/>
+                                <Entry Text="{Binding NombreCliente}" Placeholder="Ej. Juan Pérez" TextColor="#334155" FontAttributes="Bold" BackgroundColor="Transparent"/>
+                            </VerticalStackLayout>
+                        </Frame>
+
+                        <Frame BackgroundColor="#F8FAFC" CornerRadius="12" HasShadow="False" Padding="15,5" BorderColor="Transparent">
+                            <VerticalStackLayout Spacing="0">
+                                <Label Text="TELÉFONO" FontSize="9" TextColor="#94a3b8" FontAttributes="Bold"/>
+                                <Entry Text="{Binding TelefonoCliente}" Keyboard="Telephone" Placeholder="099 999 9999" TextColor="#334155" FontAttributes="Bold" BackgroundColor="Transparent"/>
+                            </VerticalStackLayout>
+                        </Frame>
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Spacing="10">
+                        <Label Text="📅 ¿CUÁNDO VIENES?" TextColor="#f36b01" FontAttributes="Bold" FontSize="12"/>
+
+                        <Grid ColumnDefinitions="*, *" ColumnSpacing="12">
+                            <Frame Grid.Column="0" BackgroundColor="#F8FAFC" CornerRadius="12" HasShadow="False" Padding="10,5" BorderColor="Transparent">
+                                <VerticalStackLayout Spacing="0">
+                                    <Label Text="FECHA" FontSize="9" TextColor="#94a3b8" FontAttributes="Bold"/>
+                                    <DatePicker Date="{Binding Fecha}" TextColor="#334155" FontAttributes="Bold" BackgroundColor="Transparent"/>
+                                </VerticalStackLayout>
+                            </Frame>
+
+                            <Frame Grid.Column="1" BackgroundColor="#F8FAFC" CornerRadius="12" HasShadow="False" Padding="10,5" BorderColor="Transparent">
+                                <VerticalStackLayout Spacing="0">
+                                    <Label Text="HORA" FontSize="9" TextColor="#94a3b8" FontAttributes="Bold"/>
+                                    <TimePicker Time="{Binding Hora}" TextColor="#334155" FontAttributes="Bold" BackgroundColor="Transparent"/>
+                                </VerticalStackLayout>
+                            </Frame>
+                        </Grid>
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Spacing="10">
+                        <Label Text="👥 ¿CUÁNTOS SON?" TextColor="#f36b01" FontAttributes="Bold" FontSize="12"/>
+
+                        <Frame BackgroundColor="#F8FAFC" CornerRadius="16" HasShadow="False" Padding="15" BorderColor="Transparent">
+                            <Grid ColumnDefinitions="*, Auto">
+                                <Label Text="Personas en la mesa" TextColor="#64748b" VerticalOptions="Center" FontSize="14"/>
+
+                                <Grid Grid.Column="1" ColumnDefinitions="40, 40, 40">
+                                    <Frame Grid.Column="0" Padding="0" CornerRadius="8" HasShadow="True" BackgroundColor="White" BorderColor="Transparent">
+                                        <Button Text="-" Command="{Binding UpdateGuestsCommand}" CommandParameter="-1"
+                                                BackgroundColor="Transparent" TextColor="Gray" FontAttributes="Bold" FontSize="20"/>
+                                    </Frame>
+
+                                    <Label Grid.Column="1" Text="{Binding NumeroPersonas}" TextColor="#0f172a" FontSize="20" FontAttributes="Bold" 
+                                           HorizontalOptions="Center" VerticalOptions="Center"/>
+
+                                    <Frame Grid.Column="2" Padding="0" CornerRadius="8" HasShadow="True" BackgroundColor="#f36b01" BorderColor="Transparent">
+                                        <Button Text="+" Command="{Binding UpdateGuestsCommand}" CommandParameter="1"
+                                                BackgroundColor="Transparent" TextColor="White" FontAttributes="Bold" FontSize="20"/>
+                                    </Frame>
+                                </Grid>
+                            </Grid>
+                        </Frame>
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Spacing="10">
+                        <Label Text="📍 NUESTRA UBICACIÓN" TextColor="#f36b01" FontAttributes="Bold" FontSize="12"/>
+
+                        <Frame CornerRadius="16" Padding="0" HasShadow="True" BorderColor="#e2e8f0" BackgroundColor="White" IsClippedToBounds="True">
+                            <VerticalStackLayout>
+                                <Grid Padding="15" BackgroundColor="#F8FAFC">
+                                    <Label Text="📍 Av. República del Salvador y Portugal" TextColor="#334155" FontSize="12" FontAttributes="Bold" LineBreakMode="TailTruncation"/>
+                                </Grid>
+
+                                <Grid HeightRequest="180">
+
+                                    <Image Source="fondomapa.jpg" 
+                                           Aspect="AspectFill" 
+                                           Opacity="1"/>
+
+                                    <Grid>
+                                        <Frame BackgroundColor="#1f2937" CornerRadius="4" Padding="8,4" HorizontalOptions="Start" VerticalOptions="Start" Margin="10,20" HasShadow="False" BorderColor="Transparent">
+                                            <Label Text="Ampliar el mapa" TextColor="White" FontSize="10" FontAttributes="Bold"/>
+                                        </Frame>
+
+                                        <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="2" TranslationY="-15">
+                                            <Frame Padding="10,5" CornerRadius="6" BackgroundColor="White" HasShadow="True" BorderColor="Transparent">
+                                                <Label Text="¡Te esperamos aquí!" TextColor="#f36b01" FontSize="10" FontAttributes="Bold"/>
+                                            </Frame>
+                                            <Label Text="📍" FontSize="50" TextColor="#ea580c" HorizontalOptions="Center" Margin="0,-10,0,0"/>
+                                        </VerticalStackLayout>
+                                    </Grid>
+
+                                    <Button BackgroundColor="Transparent" Command="{Binding OpenMapCommand}"/>
+                                </Grid>
+
+                                <Grid ColumnDefinitions="*, *" Padding="15" BackgroundColor="White">
+                                    <Label Text="🕒 10:00 AM - 11:00 PM" TextColor="#64748b" FontSize="11" FontAttributes="Bold"/>
+                                    <Label Grid.Column="1" Text="📞 098 378 5934" TextColor="#64748b" FontSize="11" FontAttributes="Bold" HorizontalOptions="End">
+                                        <Label.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding CallPhoneCommand}"/>
+                                        </Label.GestureRecognizers>
+                                    </Label>
+                                </Grid>
+                            </VerticalStackLayout>
+                        </Frame>
+                    </VerticalStackLayout>
+
+                </VerticalStackLayout>
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <Button Text="CONFIRMAR RESERVA" 
+                Command="{Binding SubmitReservationCommand}"
+                IsVisible="{Binding IsFormVisible}"
+                BackgroundColor="#f36b01" 
+                TextColor="White" 
+                FontAttributes="Bold" 
+                FontSize="16"
+                CornerRadius="25"
+                HeightRequest="55"
+                Margin="20"
+                VerticalOptions="End"
+                Shadow="{Shadow Brush=Black, Offset='0,4', Radius=8, Opacity=0.2}"/>
+
+        <Grid IsVisible="{Binding IsSubmitted}" BackgroundColor="White" Padding="30">
+            <VerticalStackLayout VerticalOptions="Center" Spacing="20">
+                <Frame BackgroundColor="#dcfce7" CornerRadius="60" HeightRequest="120" WidthRequest="120" Padding="0" HorizontalOptions="Center" HasShadow="False" BorderColor="Transparent">
+                    <Label Text="✓" TextColor="#16a34a" FontSize="60" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Center"/>
+                </Frame>
+                <Label Text="¡RESERVA LISTA!" TextColor="#0f172a" FontSize="24" FontAttributes="Bold" HorizontalOptions="Center"/>
+                <Label Text="Te esperamos." TextColor="#64748b" HorizontalOptions="Center"/>
+                <Button Text="Hacer otra reserva" Command="{Binding ResetFormCommand}" BackgroundColor="#0f172a" TextColor="White" CornerRadius="25" HeightRequest="50" FontAttributes="Bold" Margin="0,20,0,0"/>
+            </VerticalStackLayout>
+        </Grid>
+    </Grid>
+</ContentPage>

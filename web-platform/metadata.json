@@ -1,0 +1,5 @@
+{
+  "name": "mesaGO Web Platform",
+  "description": "A modern web interface for the mesaGO restaurant management system, featuring an Admin Dashboard for menu management and a Client Portal for reservations and menu viewing.",
+  "requestFramePermissions": []
+}

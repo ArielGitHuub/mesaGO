@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:mesaGO_App.ViewModels"
+             xmlns:models="clr-namespace:mesaGO_App.Models"
+             xmlns:views="clr-namespace:mesaGO_App.Views"
+             x:Class="mesaGO_App.Views.MenuPage"
+             BackgroundColor="White">
+
+    <ContentPage.BindingContext>
+        <vm:MenuViewModel />
+    </ContentPage.BindingContext>
+
+    <ContentPage.Resources>
+        <DataTemplate x:Key="NormalCategoryTemplate">
+            <Border StrokeShape="RoundRectangle 16" StrokeThickness="0" HeightRequest="160" Margin="5">
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MenuViewModel}}, Path=SelectCategoryCommand}" CommandParameter="{Binding .}" />
+                </Border.GestureRecognizers>
+                <Grid>
+                    <Image Source="{Binding Image}" Aspect="AspectFill"/>
+                    <BoxView Color="Black" Opacity="0.1"/>
+                    <Label Text="{Binding Name}" TextColor="White" FontAttributes="Bold" FontSize="16" 
+                           VerticalOptions="End" HorizontalOptions="Center" Margin="0,0,0,10">
+                        <Label.Shadow>
+                            <Shadow Brush="Black" Offset="1,1" Radius="2" Opacity="0.8"/>
+                        </Label.Shadow>
+                    </Label>
+                </Grid>
+            </Border>
+        </DataTemplate>
+
+        <DataTemplate x:Key="SpecialCategoryTemplate">
+            <Border StrokeShape="RoundRectangle 16" StrokeThickness="0" HeightRequest="160" Margin="5" BackgroundColor="#f36b01">
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MenuViewModel}}, Path=SelectCategoryCommand}" CommandParameter="{Binding .}" />
+                </Border.GestureRecognizers>
+                <Grid>
+                    <Label Text="RED WEEK" TextColor="White" Opacity="0.1" FontSize="10" Rotation="-90" VerticalOptions="Center" HorizontalOptions="End" Margin="0,0,-20,0"/>
+                    <Label Text="RED WEEK" TextColor="White" Opacity="0.1" FontSize="10" Rotation="-90" VerticalOptions="Center" HorizontalOptions="Start" Margin="-20,0,0,0"/>
+
+                    <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="0">
+                        <Label Text="HASTA" TextColor="White" FontSize="10" FontAttributes="Bold" HorizontalOptions="Center"/>
+                        <Label Text="25%" TextColor="White" FontSize="40" FontAttributes="Bold" HorizontalOptions="Center" LineHeight="1"/>
+                        <Label Text="DSCTO." TextColor="White" FontSize="12" FontAttributes="Bold" HorizontalOptions="Center" CharacterSpacing="2"/>
+                    </VerticalStackLayout>
+
+                    <Label Text="{Binding Name}" TextColor="White" FontAttributes="Bold" FontSize="12" 
+                           VerticalOptions="End" HorizontalOptions="Center" Margin="0,0,0,10"/>
+                </Grid>
+            </Border>
+        </DataTemplate>
+
+        <views:CategoryDataTemplateSelector x:Key="CategorySelector"
+                                            NormalTemplate="{StaticResource NormalCategoryTemplate}"
+                                            SpecialTemplate="{StaticResource SpecialCategoryTemplate}" />
+
+        <Style x:Key="HiddenIfTrue" TargetType="VisualElement">
+            <Style.Triggers>
+                <DataTrigger TargetType="VisualElement" Binding="{Binding IsCategorySelected}" Value="True">
+                    <Setter Property="IsVisible" Value="False" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </ContentPage.Resources>
+
+    <Grid RowDefinitions="Auto, *">
+
+        <Grid Grid.Row="0" ColumnDefinitions="Auto, *, Auto" Padding="15,10" BackgroundColor="White">
+            <ImageButton Command="{Binding GoBackCommand}" HeightRequest="30" WidthRequest="30" BackgroundColor="Transparent">
+                <ImageButton.Source>
+                    <FontImageSource Glyph="ᐸ" Color="Black" Size="25"/>
+                </ImageButton.Source>
+            </ImageButton>
+
+            <VerticalStackLayout Grid.Column="1" HorizontalOptions="Center">
+                <Grid ColumnDefinitions="Auto, Auto" HorizontalOptions="Center">
+                    <Label Text="{Binding ServiceIcon}" FontSize="18" Margin="0,0,5,0"/>
+                    <Label Text="{Binding ServiceModeText}" TextColor="Black" FontAttributes="Bold" FontSize="16"/>
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ToggleServiceModeCommand}"/>
+                    </Grid.GestureRecognizers>
+                </Grid>
+                <Label Text="Casa - Fray Leonardo..." TextColor="Gray" FontSize="10" HorizontalOptions="Center"/>
+            </VerticalStackLayout>
+
+            <Label Grid.Column="2" Text="☰" TextColor="Black" FontSize="25" VerticalOptions="Center"/>
+        </Grid>
+
+        <ScrollView Grid.Row="1" Padding="15" Style="{StaticResource HiddenIfTrue}">
+            <VerticalStackLayout>
+                <Label Text="MENU" TextColor="Black" FontSize="30" FontAttributes="Bold" Margin="0,0,0,15"/>
+
+                <CollectionView ItemsSource="{Binding Categories}" ItemTemplate="{StaticResource CategorySelector}">
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout Orientation="Vertical" Span="2" HorizontalItemSpacing="10" VerticalItemSpacing="10"/>
+                    </CollectionView.ItemsLayout>
+                </CollectionView>
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <Grid Grid.Row="1" RowDefinitions="Auto, *" IsVisible="{Binding IsCategorySelected}" Padding="15,0">
+
+            <VerticalStackLayout Grid.Row="0" Spacing="10" Padding="0,10">
+                <Label Text="{Binding HeaderTitle}" TextColor="Black" FontSize="24" FontAttributes="Bold"/>
+
+                <CollectionView ItemsSource="{Binding SubCategories}" HeightRequest="40">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Horizontal" ItemSpacing="10"/>
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Border StrokeShape="RoundRectangle 20" StrokeThickness="1" Stroke="LightGray" Padding="15,5" BackgroundColor="White">
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MenuViewModel}}, Path=FilterSubCategoryCommand}" CommandParameter="{Binding .}" />
+                                </Border.GestureRecognizers>
+                                <Label Text="{Binding .}" TextColor="Black" FontAttributes="Bold" FontSize="12" VerticalOptions="Center"/>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+
+            <CollectionView Grid.Row="1" ItemsSource="{Binding DisplayedProducts}" Margin="0,10,0,0">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid ColumnDefinitions="100, *" Margin="0,0,0,20">
+                            <Border Grid.Column="0" StrokeShape="RoundRectangle 12" StrokeThickness="0" HeightRequest="100" WidthRequest="100">
+                                <Image Source="{Binding Item.Image}" Aspect="AspectFill"/>
+                            </Border>
+
+                            <VerticalStackLayout Grid.Column="1" Padding="10,0,0,0" Spacing="2">
+                                <Label Text="{Binding Item.Name}" TextColor="Black" FontAttributes="Bold" FontSize="14" LineBreakMode="TailTruncation"/>
+                                <Label Text="{Binding Item.Description}" TextColor="Gray" FontSize="10" LineBreakMode="TailTruncation" MaxLines="2"/>
+
+                                <Grid ColumnDefinitions="*, Auto" Margin="0,5,0,0">
+                                    <VerticalStackLayout VerticalOptions="Center">
+                                        <Label Text="{Binding Item.OriginalPrice, StringFormat='Antes: ${0:F2}'}" 
+                                               TextColor="Gray" TextDecorations="Strikethrough" FontSize="10"
+                                               IsVisible="{Binding Item.OriginalPrice, Converter={x:Static x:String.IsNullOrEmpty}, ConverterParameter='Inverse'}"/>
+
+                                        <Label Text="{Binding Item.Price, StringFormat='${0:F2}'}" TextColor="#f36b01" FontAttributes="Bold" FontSize="16"/>
+                                    </VerticalStackLayout>
+
+                                    <HorizontalStackLayout Grid.Column="1" Spacing="10" VerticalOptions="Center">
+                                        <Border Stroke="LightGray" StrokeShape="RoundRectangle 8" Padding="5,2" HeightRequest="35">
+                                            <HorizontalStackLayout Spacing="8" VerticalOptions="Center">
+                                                <Label Text="-" TextColor="Gray" FontAttributes="Bold" FontSize="18">
+                                                    <Label.GestureRecognizers>
+                                                        <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MenuViewModel}}, Path=DecrementQuantityCommand}" CommandParameter="{Binding .}"/>
+                                                    </Label.GestureRecognizers>
+                                                </Label>
+
+                                                <Label Text="{Binding Quantity}" TextColor="Black" FontAttributes="Bold" VerticalOptions="Center"/>
+
+                                                <Label Text="+" TextColor="#f36b01" FontAttributes="Bold" FontSize="18">
+                                                    <Label.GestureRecognizers>
+                                                        <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MenuViewModel}}, Path=IncrementQuantityCommand}" CommandParameter="{Binding .}"/>
+                                                    </Label.GestureRecognizers>
+                                                </Label>
+                                            </HorizontalStackLayout>
+                                        </Border>
+
+                                        <ImageButton Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MenuViewModel}}, Path=AddToCartCommand}" 
+                                                     CommandParameter="{Binding .}"
+                                                     BackgroundColor="#f36b01" CornerRadius="8" HeightRequest="35" WidthRequest="35" Padding="8">
+                                            <ImageButton.Source>
+                                                <FontImageSource Glyph="+" Color="White" Size="20"/>
+                                            </ImageButton.Source>
+                                        </ImageButton>
+                                    </HorizontalStackLayout>
+                                </Grid>
+                            </VerticalStackLayout>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Grid>
+
+    </Grid>
+</ContentPage>
