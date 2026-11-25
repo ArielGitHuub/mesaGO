@@ -63,6 +63,23 @@
 
 ---
 
+## 🔑 Credenciales de demostración
+
+Para probar el **panel de administración**, inicia sesión en la app con cualquiera de estos usuarios de demostración:
+
+| Usuario | Contraseña |
+|---|---|
+| `felipe.boada@mesago.com` | `1235` |
+| `ariel.tejada@mesago.com` | `1236` |
+| `matias.flores@mesago.com` | `1237` |
+| `alexander.valladares@mesago.com` | `1238` |
+
+Los clientes normales pueden crear su cuenta desde la pestaña **Registrarse**.
+
+> Son credenciales **solo para demostración**, definidas en `LoginViewModel.cs`. No las uses en ningún servicio real.
+
+---
+
 ## 🏗️ Arquitectura
 
 La app sigue el patrón **MVVM** con [CommunityToolkit.Mvvm](https://learn.microsoft.com/dotnet/communitytoolkit/mvvm/) y navegación con **Shell**.
